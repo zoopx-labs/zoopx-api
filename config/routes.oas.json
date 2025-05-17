@@ -38,10 +38,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://april.zoopx.xyz/api/"
+              "rewritePattern": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/balance"
             }
           },
           "policies": {
@@ -93,10 +93,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "rewritePattern": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/plan/debit_plan"
             }
           },
           "policies": {
@@ -125,10 +125,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "rewritePattern": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/price"
             }
           },
           "policies": {
@@ -182,10 +182,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "rewritePattern": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/retro/calculate-claim"
             }
           },
           "policies": {
@@ -242,7 +242,7 @@
             "export": "urlForwardHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "baseUrl": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/retro/mark-claimed"
             }
           },
           "policies": {
@@ -299,7 +299,7 @@
             "export": "urlForwardHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "baseUrl": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/transactions"
             }
           },
           "policies": {
@@ -354,10 +354,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "rewritePattern": "https://may-service-519521238124.us-central1.run.app/prepare_txn"
             }
           },
           "policies": {
@@ -411,10 +411,10 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
+            "export": "urlRewriteHandler",
             "module": "$import(@zuplo/runtime)",
             "options": {
-              "baseUrl": "https://echo.zuplo.io"
+              "rewritePattern": "https://may-service-519521238124.us-central1.run.app/execute_txn"
             }
           },
           "policies": {
