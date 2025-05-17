@@ -5,8 +5,8 @@
   "name": "ZoopX API Gateway",
   "routesFolder": "routes", // Ensures Zuplo looks in the 'routes' folder
   "modules": [
-    "$zuplo/runtime/policies/api-key-inbound/index.ts"
-    // "$import(./modules/add-backend-secret-header)" // Will be added in Step 6
+    "$zuplo/runtime/policies/api-key-inbound/index.ts",
+    "$import(./modules/add-backend-secret-header)" // << ADDED: Register your new custom module
   ],
   "policies": {
     "api-key-inbound": {
@@ -15,10 +15,18 @@
         "module": "$zuplo/runtime/policies/api-key-inbound/index.ts"
       },
       "options": {
-        "header": "X-API-Key", // Or "Authorization" with "prefix": "Bearer "
+        // UPDATED based on "No Authorization Header" error and successful curl with Bearer token:
+        "header": "Authorization",
+        "prefix": "Bearer ", // Ensures Zuplo expects "Bearer YOUR_KEY"
         "allowQueryString": false
       }
+    },
+    "add-secret": { // << ADDED: New policy definition for adding the shared secret header
+      "handler": {
+        "export": "default", // Because your add-backend-secret-header.ts uses 'export default'
+        "module": "$import(./modules/add-backend-secret-header)"
+      },
+      "options": {} // This policy reads the secret from environment variables, so no options here
     }
-    // "add-secret": {} // Will be defined in Step 6
   }
 }
