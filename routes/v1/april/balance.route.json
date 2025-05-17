@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "route": {
+    "path": "/v1/april/balance",
+    "method": "GET"
+  },
+  "handler": {
+    "type": "url-rewrite",
+    "options": {
+      "url": "https://april.zoopx.xyz/api/v1/balance"
+    }
+  }
+}

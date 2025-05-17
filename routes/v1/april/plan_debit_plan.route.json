@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "route": {
+    "path": "/v1/april/plan/debit_plan",
+    "method": "POST"
+  },
+  "handler": {
+    "type": "url-rewrite",
+    "options": {
+      "url": "https://april.zoopx.xyz/api/v1/plan/debit_plan"
+    }
+  }
+}

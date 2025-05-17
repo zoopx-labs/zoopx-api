@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "route": {
+    "path": "/v1/april/price",
+    "method": "GET"
+  },
+  "handler": {
+    "type": "url-rewrite",
+    "options": {
+      "url": "https://april.zoopx.xyz/api/v1/price"
+    }
+  }
+}
