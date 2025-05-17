@@ -1,40 +1,24 @@
 {
   "version": 1,
-  "compatibilityDate": "2025-02-06", // Or your project's specific compatibility date
+  "compatibilityDate": "2025-02-06", // Or your project's specific date
   "project": "apricot_sparkling_barnacle", // Your project slug
-  "name": "ZoopX API Gateway",    // Replace with your desired API display name if different
-  "routesFolder": "routes", // Explicitly defines where your .route.json files are
+  "name": "ZoopX API Gateway",
+  "routesFolder": "routes", // Ensures Zuplo looks in the 'routes' folder
   "modules": [
-    // Standard Zuplo module for API Key authentication
-    "$zuplo/runtime/policies/api-key-inbound/index.ts",
-    // You will add your custom module for the shared secret header here later
-    // e.g., "$import(./modules/add-backend-secret-header)"
+    "$zuplo/runtime/policies/api-key-inbound/index.ts"
+    // "$import(./modules/add-backend-secret-header)" // Will be added in Step 6
   ],
   "policies": {
-    "api-key-inbound": { // This is the policy name you will reference in your .route.json files
+    "api-key-inbound": {
       "handler": {
-        "export": "ApiKeyInboundPolicy", // Standard Zuplo API key policy export name
+        "export": "ApiKeyInboundPolicy",
         "module": "$zuplo/runtime/policies/api-key-inbound/index.ts"
       },
       "options": {
-        // Configure how clients should send the API key.
-        // Choose ONE of the following common methods and uncomment/edit it.
-        // Defaulting to X-API-Key header for now.
-
-        // Option 1: Custom Header (e.g., X-API-Key) - Often a good choice
-        "header": "X-API-Key",
+        "header": "X-API-Key", // Or "Authorization" with "prefix": "Bearer "
         "allowQueryString": false
-
-        // Option 2: Authorization Bearer Token
-        // "header": "Authorization",
-        // "prefix": "Bearer ", // Note the space after Bearer
-        // "allowQueryString": false
-
-        // Option 3: Query Parameter (Less secure for sensitive keys if URLs are logged)
-        // "allowQueryString": true,
-        // "queryStringKey": "apiKey"
       }
     }
-    // You will define the "add-secret" policy for the shared backend header here later
+    // "add-secret": {} // Will be defined in Step 6
   }
 }
