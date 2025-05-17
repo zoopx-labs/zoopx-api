@@ -1,32 +1,8 @@
 {
   "version": 1,
-  "compatibilityDate": "2025-02-06", // Or your project's specific date
-  "project": "apricot_sparkling_barnacle", // Your project slug
+  "compatibilityDate": "2025-02-06",
+  "project": "apricot_sparkling_barnacle",
   "name": "ZoopX API Gateway",
-  "routesFolder": "routes", // Ensures Zuplo looks in the 'routes' folder
-  "modules": [
-    "$zuplo/runtime/policies/api-key-inbound/index.ts",
-    "$import(./modules/add-backend-secret-header)" // << ADDED: Register your new custom module
-  ],
-  "policies": {
-    "api-key-inbound": {
-      "handler": {
-        "export": "ApiKeyInboundPolicy",
-        "module": "$zuplo/runtime/policies/api-key-inbound/index.ts"
-      },
-      "options": {
-        // UPDATED based on "No Authorization Header" error and successful curl with Bearer token:
-        "header": "Authorization",
-        "prefix": "Bearer ", // Ensures Zuplo expects "Bearer YOUR_KEY"
-        "allowQueryString": false
-      }
-    },
-    "add-secret": { // << ADDED: New policy definition for adding the shared secret header
-      "handler": {
-        "export": "default", // Because your add-backend-secret-header.ts uses 'export default'
-        "module": "$import(./modules/add-backend-secret-header)"
-      },
-      "options": {} // This policy reads the secret from environment variables, so no options here
-    }
-  }
+  "routesFolder": "routes",
+  "modules": []
 }
