@@ -34,6 +34,19 @@
           "200": {
             "description": "Successful balance response"
           }
+        },
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "https://april.zoopx.xyz/api/v1/balance"
+            }
+          },
+          "policies": {
+            "inbound": []
+          }
         }
       }
     },
