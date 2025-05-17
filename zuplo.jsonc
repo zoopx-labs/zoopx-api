@@ -1,8 +1,40 @@
 {
-  "$schema": "https://zuplo.com/schemas/config.json",
-  "name": "zoopx-api",
-  "project": "apricot_sparkling_barnacle",
-  "compatibilityDate": "2025-02-06",
   "version": 1,
-  "routes": "../routes"
+  "compatibilityDate": "2025-02-06", // Or your project's specific compatibility date
+  "project": "apricot_sparkling_barnacle", // Your project slug
+  "name": "ZoopX API Gateway",    // Replace with your desired API display name if different
+  "routesFolder": "routes", // Explicitly defines where your .route.json files are
+  "modules": [
+    // Standard Zuplo module for API Key authentication
+    "$zuplo/runtime/policies/api-key-inbound/index.ts",
+    // You will add your custom module for the shared secret header here later
+    // e.g., "$import(./modules/add-backend-secret-header)"
+  ],
+  "policies": {
+    "api-key-inbound": { // This is the policy name you will reference in your .route.json files
+      "handler": {
+        "export": "ApiKeyInboundPolicy", // Standard Zuplo API key policy export name
+        "module": "$zuplo/runtime/policies/api-key-inbound/index.ts"
+      },
+      "options": {
+        // Configure how clients should send the API key.
+        // Choose ONE of the following common methods and uncomment/edit it.
+        // Defaulting to X-API-Key header for now.
+
+        // Option 1: Custom Header (e.g., X-API-Key) - Often a good choice
+        "header": "X-API-Key",
+        "allowQueryString": false
+
+        // Option 2: Authorization Bearer Token
+        // "header": "Authorization",
+        // "prefix": "Bearer ", // Note the space after Bearer
+        // "allowQueryString": false
+
+        // Option 3: Query Parameter (Less secure for sensitive keys if URLs are logged)
+        // "allowQueryString": true,
+        // "queryStringKey": "apiKey"
+      }
+    }
+    // You will define the "add-secret" policy for the shared backend header here later
+  }
 }
