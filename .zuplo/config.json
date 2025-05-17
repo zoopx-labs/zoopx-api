@@ -1,8 +1,0 @@
-{
-  "$schema": "https://zuplo.com/schemas/config.json",
-  "name": "zoopx-api",
-  "project": "apricot_sparkling_barnacle",
-  "compatibilityDate": "2025-02-06",
-  "version": 1,
-  "routes": "../routes"
-}

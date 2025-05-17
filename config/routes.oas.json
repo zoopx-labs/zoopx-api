@@ -1,29 +1,308 @@
 {
-  "openapi": "3.1.0",
   "info": {
-    "version": "1.0.0",
-    "title": "My Zuplo API"
+    "title": "ZoopX API Gateway",
+    "description": "API Gateway for ZoopX April and May services",
+    "version": "1.0.0"
   },
+  "openapi": "3.1.0",
+  "security": [
+    {
+      "api_key_header": []
+    }
+  ],
   "paths": {
-    "/hello": {
-      "x-zuplo-path": {
-        "pathMode": "open-api"
-      },
+    "/v1/april/balance": {
       "get": {
-        "summary": "Hello World",
-        "description": "This is the first route to say hello",
-        "x-zuplo-route": {
-          "corsPolicy": "none",
-          "handler": {
-            "export": "default",
-            "module": "$import(./modules/hello-world)",
-            "options": {}
-          },
-          "policies": {
-            "inbound": []
+        "summary": "Get token balances for a user",
+        "operationId": "getAprilBalance",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/balance"
           }
         },
-        "operationId": "004ff0e0-30cf-41a7-9e9f-zuplo35e3f725"
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "Sui wallet address",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful balance response"
+          }
+        }
+      }
+    },
+    "/v1/april/plan/debit_plan": {
+      "post": {
+        "summary": "Prepare a gas debit plan",
+        "operationId": "prepareAprilDebitPlan",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/plan/debit_plan"
+          }
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Debit plan request payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_address": {
+                  "type": "string"
+                },
+                "estimated_gas_budget": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful debit plan response"
+          }
+        }
+      }
+    },
+    "/v1/april/price": {
+      "get": {
+        "summary": "Get SUI/USD and reference gas price",
+        "operationId": "getAprilPrice",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/price"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful price response"
+          }
+        }
+      }
+    },
+    "/v1/april/retro/calculate-claim": {
+      "post": {
+        "summary": "Calculate retroactive gas claim",
+        "operationId": "calculateAprilRetroClaim",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/retro/calculate-claim"
+          }
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Calculate claim request payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "activeNfts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful claim calculation response"
+          }
+        }
+      }
+    },
+    "/v1/april/retro/mark-claimed": {
+      "post": {
+        "summary": "Mark transactions as claimed",
+        "operationId": "markAprilRetroClaimed",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/retro/mark-claimed"
+          }
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Mark claimed request payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "digests": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully marked as claimed"
+          }
+        }
+      }
+    },
+    "/v1/april/transactions": {
+      "get": {
+        "summary": "Get user transaction history",
+        "operationId": "getAprilTransactions",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://unified-april-service-519521238124.asia-southeast1.run.app/api/v1/transactions"
+          }
+        },
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "all",
+              "zgu",
+              "other"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful transaction history response"
+          }
+        }
+      }
+    },
+    "/v1/may/prepare_txn": {
+      "post": {
+        "summary": "Prepare a gas-sponsored transaction",
+        "operationId": "prepareMayTransaction",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://may-service-519521238124.us-central1.run.app/prepare_txn"
+          }
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Prepare transaction request payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_dapp_action_ptb_b64": {
+                  "type": "string"
+                },
+                "user_address": {
+                  "type": "string"
+                },
+                "estimated_gas_budget": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful preparation response"
+          }
+        }
+      }
+    },
+    "/v1/may/execute_txn": {
+      "post": {
+        "summary": "Execute a gas-sponsored transaction",
+        "operationId": "executeMayTransaction",
+        "x-zuplo-route-handler": {
+          "type": "url-rewrite",
+          "options": {
+            "url": "https://may-service-519521238124.us-central1.run.app/execute_txn"
+          }
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Execute transaction request payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "final_ptb_bytes_b64": {
+                  "type": "string"
+                },
+                "user_signature_b64": {
+                  "type": "string"
+                },
+                "sponsor_signature_b64": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful execution response"
+          }
+        }
       }
     }
   }
